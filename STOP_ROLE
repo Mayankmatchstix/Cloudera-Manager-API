@@ -1,0 +1,30 @@
+CM API to stop role on a host 
+
+The following is an example of how to stop roles on a host:
+
+In order to stop one or more services on host in the cluster, you must use the API endpoint, "/clusters/{clusterName}/services/{serviceName}/roleCommands/stop." 
+
+
+The following is a generic example of how you would use the following endpoints to stop ONE role on a node:
+
+1. First you need to get the "hostId" of the host where the service/role is located.
+
+
+2. Next, you need to use the hostid to get the "roleName" 
+http://localhost:7180/api/v18/<hostid>?view=full 
+
+EXAMPLE: 
+http://localhost:7180/api/v18/hosts/38f4042c-8401-45ed-b57a-7cfcbac37c2e?view=full 
+
+
+3. From the output, get the "serviceName" and "roleName" of the role you want to stop. In the following example we are going to stop the YARN service and role:
+
+serviceName = yarn 
+roleName = yarn-RESOURCEMANAGER-4ea04f09a3a5a76e0d77536801dca39b
+
+curl -u 'admin:admin' -X POST -H "Content-Type:application/json" -d '{"items":["yarn-RESOURCEMANAGER-4ea04f09a3a5a76e0d77536801dca39b"]}' 'http://10.17.101.129:7180/api/v18/clusters/Cluster%201/services/yarn/roleCommands/stop'
+
+
+Please view the document for more information:
+
+https://cloudera.github.io/cm_api/apidocs/v18/path__clusters_-clusterName-_services_-serviceName-_roleCommands_stop.html
